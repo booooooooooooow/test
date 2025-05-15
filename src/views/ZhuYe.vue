@@ -1,5 +1,13 @@
 <template>
 	<h1>111</h1>
+	<el-button @click="handleQueryClick">query传参</el-button>
+	<router-link
+		:to="{
+			path: '/PageOne',
+			query: { name: '宝宝', age: 20 },
+		}">
+		跳转
+	</router-link>
 	<div class="mb-4">
 		<el-button>Default</el-button>
 		<el-button type="primary">Primary</el-button>
@@ -45,4 +53,13 @@ import {
 	Search,
 	Star,
 } from "@element-plus/icons-vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+const handleQueryClick = () => {
+	router.push({
+		path: "/pageOne",
+		query: { name: "小可爱", age: 18 }, // 参数会变成 ?name=小可爱&age=18
+	});
+};
 </script>
