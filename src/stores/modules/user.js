@@ -16,6 +16,7 @@ export const useUserStore = defineStore("user", {
 			// 持久化到本地存储
 			localStorage.setItem("token", token);
 			localStorage.setItem("userInfo", JSON.stringify(userInfo));
+			this.isLogin = true;
 			this.router.push({
 				path: "/PageOne",
 				query: { name: this.token, age: this.userInfo.age }, // 参数会变成 ?name=小可爱&age=18
@@ -26,6 +27,7 @@ export const useUserStore = defineStore("user", {
 			this.userInfo = null;
 			localStorage.removeItem("token");
 			localStorage.removeItem("userInfo");
+			this.isLogin = false;
 		},
 	},
 	getters: {
