@@ -1,65 +1,65 @@
 <template>
-	<h1>111</h1>
-	<el-button @click="handleQueryClick">query传参</el-button>
+	<!-- <el-button @click="handleQueryClick">query传参</el-button>
+	<el-button @click="handleParamsClick">params传参</el-button>
 	<router-link
 		:to="{
 			path: '/PageOne',
 			query: { name: '宝宝', age: 20 },
 		}">
 		跳转
-	</router-link>
-	<div class="mb-4">
-		<el-button>Default</el-button>
-		<el-button type="primary">Primary</el-button>
-		<el-button type="success">Success</el-button>
-		<el-button type="info">Info</el-button>
-		<el-button type="warning">Warning</el-button>
-		<el-button type="danger">Danger</el-button>
-	</div>
-
-	<div class="mb-4">
-		<el-button plain>Plain</el-button>
-		<el-button type="primary" plain>Primary</el-button>
-		<el-button type="success" plain>Success</el-button>
-		<el-button type="info" plain>Info</el-button>
-		<el-button type="warning" plain>Warning</el-button>
-		<el-button type="danger" plain>Danger</el-button>
-	</div>
-
-	<div class="mb-4">
-		<el-button round>Round</el-button>
-		<el-button type="primary" round>Primary</el-button>
-		<el-button type="success" round>Success</el-button>
-		<el-button type="info" round>Info</el-button>
-		<el-button type="warning" round>Warning</el-button>
-		<el-button type="danger" round>Danger</el-button>
-	</div>
-
-	<div>
-		<el-button :icon="Search" circle />
-		<el-button type="primary" :icon="Edit" circle />
-		<el-button type="success" :icon="Check" circle />
-		<el-button type="info" :icon="Message" circle />
-		<el-button type="warning" :icon="Star" circle />
-		<el-button type="danger" :icon="Delete" circle />
+	</router-link> -->
+	<div class="parent">
+		<el-input
+			v-model="account"
+			style="width: 240px"
+			placeholder="请输入账号"
+			clearable />
+		<el-input
+			v-model="password"
+			style="width: 240px"
+			placeholder="请输入密码"
+			clearable
+			show-password />
+		<el-button @click="login">登录</el-button>
 	</div>
 </template>
 <script setup>
-import {
-	Check,
-	Delete,
-	Edit,
-	Message,
-	Search,
-	Star,
-} from "@element-plus/icons-vue";
-import { useRouter } from "vue-router";
-
-const router = useRouter();
-const handleQueryClick = () => {
-	router.push({
-		path: "/pageOne",
-		query: { name: "小可爱", age: 18 }, // 参数会变成 ?name=小可爱&age=18
-	});
+import { ref } from "vue";
+import { useUserStore } from "@/stores/modules/user";
+let account = ref("");
+let password = ref("");
+const user = useUserStore();
+const token = "kkkkijjj";
+const userInfo = {
+	name: "uu",
+	age: 18,
 };
+const login = () => {
+	if (account.value === "admin" && password.value === "123") {
+		user.login(token, userInfo);
+		console.log("登录成功");
+	} else {
+		console.log("登录失败");
+	}
+};
+// const handleQueryClick = () => {
+// 	router.push({
+// 		path: "/PageOne",
+// 		query: { name: "小可爱", age: 18 }, // 参数会变成 ?name=小可爱&age=18
+// 	});
+// };
+// const handleParamsClick = () => {
+// 	router.push({
+// 		name: "PageTwo",
+// 		params: { id: 18, age: 188 }, // 参数会变成 ?name=小可爱&age=18
+// 	});
+// };
 </script>
+
+<style scoped>
+.parent {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+</style>
